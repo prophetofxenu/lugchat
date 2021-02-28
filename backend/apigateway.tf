@@ -14,7 +14,10 @@ resource "aws_api_gateway_rest_api" "lugchat" {
       "/messages/{chatroom}" = {
         get = {
           x-amazon-apigateway-integration = {
-            httpMethod = "GET"
+            requestParameters = {
+              "integration.request.querystring.all" = "method.request.querystring.all"
+            }
+            httpMethod = "POST"
             payloadFormatVersion = "1.0"
             type = "AWS_PROXY"
             uri = aws_lambda_function.get_messages.invoke_arn

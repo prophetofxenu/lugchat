@@ -2,6 +2,7 @@ import boto3
 from datetime import datetime, timedelta
 import json
 import sys
+from uuid import uuid4
 
 
 TABLE_NAME = 'LUGChat'
@@ -29,6 +30,9 @@ def push_to_db(chatroom, user, timestamp, message):
             },
             'ExpiresOn': {
                 'N': expires_on
+            },
+            'ID': {
+                'S': uuid4().hex
             }
         }
         dynamo.put_item(Item=item, TableName=TABLE_NAME)
