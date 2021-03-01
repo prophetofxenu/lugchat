@@ -37,7 +37,7 @@ def get_since_one_sec_ago(chatroom):
     ts = str(ts)[:19]
     print(ts)
     try:
-        attribute_names = { '#T': 'Timestamp' }
+        attribute_names = { '#T': 'Timestamp', '#U': 'User' }
         attribute_values = {
             ':room': {
                 'S': chatroom
@@ -73,6 +73,11 @@ def handler(event, context):
     res_body = { 'result': result }
     return {
         'statusCode': 200 if ok else 500,
+        'headers': {
+            'Access-Control-Allow-Headers': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
+        },
         'body': json.dumps(res_body),
         'isBase64Encoded': False
     }

@@ -1,10 +1,9 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
 function MessageInput(props) {
     
-    let [ message, setMessage ] = useState('');
     let inputRef = useRef(null);
 
     let label;

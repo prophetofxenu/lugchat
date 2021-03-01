@@ -62,6 +62,11 @@ def handler(event, context):
         status_code = 500
     return {
         'statusCode': status_code,
+        'headers': {
+            'Access-Control-Allow-Headers': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
+        },
         'body': json.dumps(res_body),
         'isBase64Encoded': False
     }

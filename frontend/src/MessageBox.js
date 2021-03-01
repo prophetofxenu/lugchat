@@ -11,7 +11,7 @@ function MessageBox(props) {
     }
 
     return (
-        <div className="message-box">
+        <div className="message-box" ref={props.mref}>
         {messages}
         </div>
     );

@@ -18,11 +18,10 @@ function Header(props) {
     };
 
     let setParams = function() {
-        props.setUsername(username);
-        props.setRoom(roomName);
+        props.login(username, roomName);
     };
 
-    let buttonEnabled = roomName != '' && username != '';
+    let buttonEnabled = roomName !== '' && username !== '';
 
     return (
         <div className="header">

@@ -22,6 +22,17 @@ resource "aws_api_gateway_rest_api" "lugchat" {
             type = "AWS_PROXY"
             uri = aws_lambda_function.get_messages.invoke_arn
           }
+          x-amazon-apigateway-cors = {
+            allowOrigins = ["*"]
+            allowMethods = ["GET", "POST", "OPTIONS"]
+            allowHeaders = [
+              "Content-Type",
+              "X-Amz-Date",
+              "Authorization",
+              "X-Api-Key",
+              "X-Amz-Security-Token"
+            ]
+          }
         }
         post = {
           x-amazon-apigateway-integration = {
@@ -29,6 +40,34 @@ resource "aws_api_gateway_rest_api" "lugchat" {
             payloadFormatVersion = "1.0"
             type = "AWS_PROXY"
             uri = aws_lambda_function.send_message.invoke_arn
+          }
+          x-amazon-apigateway-cors = {
+            allowOrigins = ["*"]
+            allowMethods = ["GET", "POST", "OPTIONS"]
+            allowHeaders = [
+              "Content-Type",
+              "X-Amz-Date",
+              "Authorization",
+              "X-Api-Key",
+              "X-Amz-Security-Token"
+            ]
+          }
+        }
+        options = {
+          x-amazon-api-gateway-integration = {
+            httpMethod = ["GET"]
+            type = "MOCK"
+          }
+          x-amazon-apigateway-cors = {
+            allowOrigins = ["*"]
+            allowMethods = ["GET", "POST", "OPTIONS"]
+            allowHeaders = [
+              "Content-Type",
+              "X-Amz-Date",
+              "Authorization",
+              "X-Api-Key",
+              "X-Amz-Security-Token"
+            ]
           }
         }
       }
