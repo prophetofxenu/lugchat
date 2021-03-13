@@ -7,7 +7,7 @@ import './App.css';
 
 const axios = require('axios');
 
-const API_URL = 'https://rgh5xv7fmh.execute-api.us-east-1.amazonaws.com/lugchat-stage';
+const API_URL = '<URL from API Gateway>';
 
 class App extends React.Component {
 

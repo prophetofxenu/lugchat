@@ -13,6 +13,15 @@ resource "aws_api_gateway_rest_api" "lugchat" {
     paths = {
       "/messages/{chatroom}" = {
         get = {
+          parameters = [
+            {
+              in = "query"
+              name = "all"
+              schema = {
+                type = "string"
+              }
+            }
+          ]
           x-amazon-apigateway-integration = {
             requestParameters = {
               "integration.request.querystring.all" = "method.request.querystring.all"
@@ -54,9 +63,20 @@ resource "aws_api_gateway_rest_api" "lugchat" {
           }
         }
         options = {
-          x-amazon-api-gateway-integration = {
-            httpMethod = ["GET"]
+          consumes = [ "application/json" ]
+          produces = [ "application/json" ]
+          responses = {}
+          x-amazon-apigateway-integration = {
             type = "MOCK"
+            responses = {
+              "default" = {
+                "statusCode" = "200"
+              }
+            }
+            requestTemplates = {
+              "application/json" = "{\"statusCode\": 200}"
+            }
+            passthroughBehavior = "when_no_match"
           }
           x-amazon-apigateway-cors = {
             allowOrigins = ["*"]
@@ -73,6 +93,13 @@ resource "aws_api_gateway_rest_api" "lugchat" {
       }
     }
   })
+}
+
+resource "aws_api_gateway_model" "empty" {
+  rest_api_id = aws_api_gateway_rest_api.lugchat.id
+  name = "Empty"
+  content_type = "application/json"
+  schema = "{}"
 }
 
 resource "aws_api_gateway_deployment" "lugchat" {
