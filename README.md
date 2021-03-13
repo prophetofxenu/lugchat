@@ -1,6 +1,8 @@
 # lugchat
 IM webapp using AWS serverless resources
 
+![resource diagram](aws-diagram.png)
+
 **WARNING**: This app makes a lot of API requests in the background. AWS provides one million free requests a month,
 but if you leave this app running in a tab for ~30 minutes, it may chew through them. Don't leave it running when you're
 not using it.
